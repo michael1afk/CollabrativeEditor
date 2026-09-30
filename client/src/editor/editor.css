@@ -1,0 +1,316 @@
+.editor {
+  --page-width: 700px;
+  --ink: #1f2328;
+  --ink-muted: #59636e;
+  --rule: #d8dee4;
+  --page: #ffffff;
+  --accent: #1f6feb;
+}
+
+/* --- toolbar ------------------------------------------------------------ */
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem max(1rem, calc((100% - var(--page-width)) / 2));
+  background: color-mix(in srgb, var(--page) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.toolbar-button {
+  min-width: 2.25rem;
+  height: 2rem;
+  padding: 0 0.55rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.toolbar-button:hover {
+  background: #f2f4f7;
+  color: var(--ink);
+}
+
+.toolbar-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.toolbar-button.is-active {
+  background: #ddeaff;
+  border-color: #b6d2ff;
+  color: var(--accent);
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 1.25rem;
+  margin: 0 0.35rem;
+  background: var(--rule);
+}
+
+/* --- page --------------------------------------------------------------- */
+
+.editor-page {
+  background: var(--page);
+  min-height: calc(100vh - 3rem);
+}
+
+/* The ProseMirror contenteditable itself - this is the sheet of paper. */
+.editor-surface {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 4rem 1.5rem 8rem;
+  color: var(--ink);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  outline: none;
+}
+
+.editor-surface > * + * {
+  margin-top: 1.1em;
+}
+
+.editor-surface h1,
+.editor-surface h2,
+.editor-surface h3 {
+  line-height: 1.25;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  margin-top: 2em;
+}
+
+.editor-surface h1 {
+  font-size: 2rem;
+}
+
+.editor-surface h2 {
+  font-size: 1.5rem;
+}
+
+.editor-surface h3 {
+  font-size: 1.2rem;
+}
+
+.editor-surface > :first-child {
+  margin-top: 0;
+}
+
+.editor-surface ul,
+.editor-surface ol {
+  padding-left: 1.5rem;
+}
+
+.editor-surface li > * + * {
+  margin-top: 0.4em;
+}
+
+.editor-surface li p {
+  margin: 0;
+}
+
+.editor-surface blockquote {
+  margin-left: 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--rule);
+  color: var(--ink-muted);
+}
+
+.editor-surface code {
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  background: #f2f4f7;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.editor-surface pre {
+  padding: 1rem 1.15rem;
+  border-radius: 8px;
+  background: #1f2328;
+  color: #f2f4f7;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+.editor-surface pre code {
+  padding: 0;
+  background: none;
+  color: inherit;
+  font-size: 0.875rem;
+}
+
+.editor-surface hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+}
+
+/* --- header: toolbar + presence ---------------------------------------- */
+
+.editor-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-right: 1rem;
+  background: color-mix(in srgb, var(--page) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+
+/* The toolbar keeps its own padding but no longer owns the sticky border. */
+.editor-header .toolbar {
+  position: static;
+  flex: 1;
+  background: none;
+  backdrop-filter: none;
+  border-bottom: none;
+}
+
+.editor-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: none;
+}
+
+.editor-loading {
+  padding: 4rem 1.5rem;
+  text-align: center;
+  color: #59636e;
+}
+
+/* --- connection status -------------------------------------------------- */
+
+.conn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.conn-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.conn-connected .conn-dot {
+  background: #2f9e44;
+}
+
+.conn-connecting .conn-dot {
+  background: #f08c00;
+}
+
+.conn-disconnected .conn-dot {
+  background: #e03131;
+}
+
+/* --- presence ----------------------------------------------------------- */
+
+.presence {
+  display: flex;
+  align-items: center;
+}
+
+.presence-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-left: -0.4rem;
+  border-radius: 50%;
+  border: 2px solid var(--page);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+.presence-avatar:first-child {
+  margin-left: 0;
+}
+
+.presence-avatar.is-self {
+  box-shadow: 0 0 0 1px var(--rule);
+}
+
+.presence-count {
+  margin-left: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+/* --- remote carets (awareness, not document content) -------------------- */
+
+.collaboration-carets__caret {
+  position: relative;
+  margin-left: -1px;
+  margin-right: -1px;
+  border-left: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  word-break: normal;
+  pointer-events: none;
+}
+
+.collaboration-carets__label {
+  position: absolute;
+  top: -1.4em;
+  left: -1px;
+  padding: 0.05rem 0.35rem;
+  border-radius: 3px 3px 3px 0;
+  color: #fff;
+  font-size: 0.6875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* --- document title + back link in the header --------------------------- */
+
+.editor-back {
+  flex: none;
+  padding: 0 0.6rem;
+  color: var(--ink-muted);
+  font-size: 1.1rem;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.editor-back:hover {
+  color: var(--ink);
+}
+
+.editor-title {
+  flex: none;
+  max-width: 14rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink);
+}

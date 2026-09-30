@@ -1,0 +1,74 @@
+# ---------------------------------------------------------------------------
+# Dependencies
+# ---------------------------------------------------------------------------
+node_modules/
+
+# package-lock.json is intentionally NOT ignored: workspaces must resolve to
+# identical dependency trees across machines and CI.
+
+# ---------------------------------------------------------------------------
+# Build output
+# ---------------------------------------------------------------------------
+dist/
+build/
+*.tsbuildinfo
+.vite/
+
+# ---------------------------------------------------------------------------
+# Environment / secrets
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ---------------------------------------------------------------------------
+# Local service data (Postgres / Redis via docker-compose)
+#
+# Drizzle migrations under server/drizzle/ are intentionally NOT ignored -
+# they are the schema history and must be committed.
+# ---------------------------------------------------------------------------
+pgdata/
+redis-data/
+docker-compose.override.yml
+
+# ---------------------------------------------------------------------------
+# Tests / coverage
+# ---------------------------------------------------------------------------
+coverage/
+test-results/
+playwright-report/
+.playwright/
+
+# ---------------------------------------------------------------------------
+# Logs
+# ---------------------------------------------------------------------------
+*.log
+npm-debug.log*
+.npm/
+
+# ---------------------------------------------------------------------------
+# Claude Code
+#
+# CLAUDE.md is committed - it carries the project conventions and
+# non-negotiables. Only per-machine overrides are ignored.
+# ---------------------------------------------------------------------------
+.claude/settings.local.json
+CLAUDE.local.md
+
+# ---------------------------------------------------------------------------
+# Editors
+# ---------------------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+.idea/
+
+# ---------------------------------------------------------------------------
+# OS
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
